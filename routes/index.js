@@ -69,7 +69,7 @@ module.exports = app => {
 
   /**
   * @swagger
-  * /pdv/location:
+  * /location/pdv:
   *   get:
   *     description: Retorna PDV por latitude e longitude.
   *     tags:
@@ -77,20 +77,32 @@ module.exports = app => {
   *     produces:
   *      - application/json
   *     parameters:
-  *       - name: location
-  *         description: Identificador da coordenada PDV
+  *       - name: lng
+  *         description: Longitude da coordenada.
   *         in: query
   *         required: true
-  *         properties:
-  *           location:
-  *             type: array
+  *         type: number
+  *       - name: lat
+  *         description: Latitude da coordenada.
+  *         in: query
+  *         required: true
+  *         type: number
+  *       - name: tipobusca
+  *         description: Tipo de busca.
+  *         in: query
+  *         required: true
+  *         items:
+  *           type: string
+  *         enum: [
+  *           Point, MultiPolygon
+  *         ]
   *     responses:
   *       '200':
   *         description: Retorna PDV.
   *       '422':
   *         description: Retorna mensagem de insucesso.
   */
-  app.get('/pdv/location', (req, res) => {
+  app.get('/location/pdv', (req, res) => {
     controller.pdv_get_search_controller.getSearch(req.query, (err, data) => {
       if (err) {
         res.status(err.status).json({mensagem: err.msg});

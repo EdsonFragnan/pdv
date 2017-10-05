@@ -4,7 +4,6 @@ module.exports.postPDV = (pdv, callback) => {
     if (err) {
       return callback({status: 422, msg: 'PDV não cadastrado.'}, null);
     } else {
-      console.log(data);
       return callback(null, data);
     }
   });
