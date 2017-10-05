@@ -21,8 +21,10 @@ module.exports = app => {
    *     produces:
    *      - application/json
    *     responses:
-   *       200:
-   *         description: pdvs
+   *       '200':
+   *         description: Retorna PDV.
+   *       '422':
+   *         description: Retorna mensagem de insucesso.
    */
   app.get('/pdv', (req, res) => {
     controller.pdv_get_all_controller.allPDV((err, data) => {
@@ -52,8 +54,8 @@ module.exports = app => {
   *     responses:
   *       '200':
   *         description: Retorna PDV.
-  *       '204':
-  *         description: Retorna uma mensagem.
+  *       '422':
+  *         description: Retorna mensagem de insucesso.
   */
   app.get('/pdv/:id', (req, res) => {
     controller.pdv_get_one_controller.onePDV(req.params.id, (err, data) => {
@@ -67,18 +69,28 @@ module.exports = app => {
 
   /**
   * @swagger
-  * /search:
+  * /pdv/location:
   *   get:
   *     description: Retorna PDV por latitude e longitude.
   *     tags:
   *      - PDV
   *     produces:
   *      - application/json
+  *     parameters:
+  *       - name: location
+  *         description: Identificador da coordenada PDV
+  *         in: query
+  *         required: true
+  *         properties:
+  *           location:
+  *             type: array
   *     responses:
-  *       200:
-  *         description: pdvs
+  *       '200':
+  *         description: Retorna PDV.
+  *       '422':
+  *         description: Retorna mensagem de insucesso.
   */
-  app.get('/search', (req, res) => {
+  app.get('/pdv/location', (req, res) => {
     controller.pdv_get_search_controller.getSearch(req.query, (err, data) => {
       if (err) {
         res.status(err.status).json({mensagem: err.msg});
@@ -160,10 +172,10 @@ module.exports = app => {
   *             }
   *           }
   *     responses:
-  *       200:
-  *         description: pdvs
-  *       422:
-  *         description: erro
+  *       '200':
+  *         description: Retorna PDV.
+  *       '422':
+  *         description: Retorna mensagem de insucesso.
   */
   app.post('/pdv', (req, res) => {
     controller.pdv_post_pdv_controller.postPDV(req.body, (err, data) => {
