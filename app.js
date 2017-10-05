@@ -7,7 +7,7 @@ const	express	= require('express'),
       uristring =
         process.env.MONGOLAB_URI ||
         process.env.MONGOHQ_URL ||
-        'mongodb://127.0.0.1:27017/mydb_pdv';
+        'mongodb://mydb_pdv:123456@ds111565.mlab.com:11565/heroku_rth83m55';
 
 const swaggerDefinition = {
   info: {
