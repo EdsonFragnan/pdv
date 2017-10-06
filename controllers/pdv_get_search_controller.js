@@ -61,35 +61,10 @@ module.exports.getSearch = (location, callback) => {
           return callback({status: 422, msg: 'PDVs não encontrados.'}, null);
         } else if (resp.length === 1) {
           return callback(null, resp[0]);
-        } else { 
+        } else {
           return callback(null, {'estabelecimentos_proximos': resp});
         }
       });
     }
   });
 };
-
-
-/*
-
-[ { _id: 59d46a908fa554d790441ed3,
-    id: 1,
-    tradingName: 'Adega Osasco',
-    ownerName: 'Ze da Ambev',
-    document: '02.453.716/000170',
-    __v: 0,
-    address: { type: 'Point', coordinates: [Object] },
-    coverageArea: { type: 'MultiPolygon', coordinates: [Object] } },
-
-
-
-
-
-
-
-
-
-
-
-
-*/

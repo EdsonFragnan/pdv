@@ -4,7 +4,11 @@ module.exports.allPDV = (callback) => {
     if (err || data === null) {
       return callback({status: 422, msg: 'PDVs não encontrados.'}, null);
     } else {
-      return callback(null, data);
+      if (data.length === 0) {
+        return callback({status: 422, msg: 'PDVs não encontrados.'}, null);
+      } else {
+        return callback(null, data);
+      }
     }
   });
 };
