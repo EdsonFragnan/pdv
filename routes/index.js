@@ -1,6 +1,7 @@
 module.exports = app => {
   const controller = app.controllers;
 
+  app.get('/documentation');
    /**
    * @swagger
    * definition:
@@ -198,4 +199,5 @@ module.exports = app => {
       }
     });
   });
+
 }

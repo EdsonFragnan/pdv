@@ -26,8 +26,6 @@ const rotas = {
   apis: ['./routes/index.js']
 };
 
-const swaggerSpec = swaggerJSDoc(rotas);
-
 mongoose.connect(uristring, { useMongoClient: true }, (err, res) => {
   if (err) {
     console.log ('ERRO conexão: ' + uristring + '. ' + err);
@@ -38,7 +36,8 @@ mongoose.connect(uristring, { useMongoClient: true }, (err, res) => {
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.get('/swagger.json', function(req, res) {
+const swaggerSpec = swaggerJSDoc(rotas);
+app.get('/swagger.json', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
