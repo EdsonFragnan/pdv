@@ -1,27 +1,25 @@
 module.exports.getSearch = (location, callback) => {
   const PDV = require('../models/pdv.js');
-
   const array_area = (pontos, endereco, callback) => {
     const lista_pdvs = [];
     for (var i in pontos) {
       const endereco_area = pontos[i].coverageArea.coordinates;
       const array_1 = endereco_area[0],
             array_2 = array_1[0];
-      for (var j in array_2) {
-        const arrayK = array_2[j];
-        for (var k in arrayK) {
-          if (endereco[0] === arrayK[1] && endereco[1] === arrayK[0]) {
-            const pdvs_2 = {
-              'tradingName': pontos[i].tradingName,
-              'ownerName': pontos[i].ownerName,
-              'document': pontos[i].document
-            };
-            lista_pdvs.push(pdvs_2);
-          } else {
-            lista_pdvs.push()
-          }
-        }
-      }
+            for (var j in array_2) {
+              const arrayK = array_2[j];
+              const array = arrayK.concat(arrayK);
+              if (endereco[0] === array[1] && endereco[1] === array[0]) {
+                const pdvs_2 = {
+                  'tradingName': pontos[i].tradingName,
+                  'ownerName': pontos[i].ownerName,
+                  'document': pontos[i].document
+                };
+                lista_pdvs.push(pdvs_2);
+              } else {
+                lista_pdvs.push()
+              }
+            }
     }
     callback(lista_pdvs);
   };
