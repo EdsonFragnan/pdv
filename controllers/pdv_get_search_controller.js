@@ -30,7 +30,7 @@ module.exports.getSearch = (location, callback) => {
     if (tipo.tipobusca === 'Point') {
       for (var i in pontos) {
         const endereco = pontos[i].address.coordinates;
-        if (endereco[0] === coordenada[0] && endereco[1] === coordenada[1]) {
+        if (endereco[0] === endereco[0] && coordenada[1] === coordenada[1]) {
           const pdvs = {
             'tipo_coordenada': 'Coordenada Precisa.',
             'tradingName': pontos[i].tradingName,
