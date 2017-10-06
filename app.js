@@ -17,7 +17,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'APIs',
   },
-  host: 'localhost:3000',
+  host: 'https://app-pdv.herokuapp.com',
   basePath: '/',
 };
 
