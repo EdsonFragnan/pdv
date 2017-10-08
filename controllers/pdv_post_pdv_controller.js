@@ -1,10 +1,42 @@
-module.exports.postPDV = (pdv, callback) => {
+module.exports.postPDV = (pdv, res) => {
   const PDV = require('../models/pdv.js');
-  PDV.postPDV(pdv, (err, data) => {
+  const PolygonCoordinates = require('polygon-coordinates');
+  const Polygon = PolygonCoordinates.polygonCoordinates(pdv.lat, pdv.lng, 22, pdv.pointDistance);
+  const MultiPolygon = [];
+  MultiPolygon.push(Polygon);
+  const object = {
+    'id': pdv.id,
+    'tradingName': pdv.tradingName,
+    'ownerName': pdv.ownerName,
+    'document': pdv.document,
+    'coverageArea': {
+      'type': 'MultiPolygon',
+      'coordinates': [MultiPolygon]
+    },
+    'address': {
+      'type': 'Point',
+      'coordinates': [pdv.lat, pdv.lng]
+    }
+  };
+  PDV.postPDV(object, (err, data) => {
     if (err) {
-      return callback({status: 422, msg: 'PDV não cadastrado.'}, null);
+      res.status(422).json({mensagem: 'PDV not registered.'});
     } else {
-      return callback(null, data);
+      const response = {
+        'id': data.id,
+        'tradingName': data.tradingName,
+        'ownerName': data.ownerName,
+        'document': data.document,
+        'coverageArea': {
+          'type': data.coverageArea.type,
+          'coordinates': data.coverageArea.coordinates,
+        },
+        'address': {
+          'type': data.address.type,
+          'coordinates': data.address.coordinates
+        }
+      };
+      res.json(response);
     }
   });
-}
+};

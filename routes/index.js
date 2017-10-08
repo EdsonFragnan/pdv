@@ -1,5 +1,8 @@
 module.exports = app => {
   const controller = app.controllers;
+  const validation_get_one = require('../validation/validation_get_one.js');
+  const validation_search = require('../validation/validation_get_search.js');
+  const validation_postpdv = require('../validation/validation_post_pdv.js');
   const path = require('path');
 
   app.get('/', (req, res) => {
@@ -34,13 +37,7 @@ module.exports = app => {
    *         description: Retorna mensagem de insucesso.
    */
   app.get('/pdv', (req, res) => {
-    controller.pdv_get_all_controller.allPDV((err, data) => {
-      if (err) {
-        res.status(err.status).json({mensagem: err.msg});
-      } else {
-        res.json(data);
-      }
-    });
+    controller.pdv_get_all_controller.allPDV(res);
   });
 
   /**
@@ -57,7 +54,7 @@ module.exports = app => {
   *         description: Identificador do PDV
   *         in: path
   *         required: true
-  *         type: integer
+  *         type: number
   *     responses:
   *       '200':
   *         description: Retorna PDV.
@@ -65,13 +62,7 @@ module.exports = app => {
   *         description: Retorna mensagem de insucesso.
   */
   app.get('/pdv/:id', (req, res) => {
-    controller.pdv_get_one_controller.onePDV(req.params.id, (err, data) => {
-      if (err) {
-        res.status(err.status).json({mensagem: err.msg});
-      } else {
-        res.json(data);
-      }
-    });
+    validation_get_one.validation_one(req.params.id, res);
   });
 
   /**
@@ -84,13 +75,13 @@ module.exports = app => {
   *     produces:
   *      - application/json
   *     parameters:
-  *       - name: lng
-  *         description: Longitude da coordenada.
+  *       - name: lat
+  *         description: Latitude da coordenada.
   *         in: query
   *         required: true
   *         type: number
-  *       - name: lat
-  *         description: Latitude da coordenada.
+  *       - name: lng
+  *         description: Longitude da coordenada.
   *         in: query
   *         required: true
   *         type: number
@@ -110,13 +101,7 @@ module.exports = app => {
   *         description: Retorna mensagem de insucesso.
   */
   app.get('/location/pdv', (req, res) => {
-    controller.pdv_get_search_controller.getSearch(req.query, (err, data) => {
-      if (err) {
-        res.status(err.status).json({mensagem: err.msg});
-      } else {
-        res.json(data);
-      }
-    });
+    validation_search.validation_get_search(req.query, res);
   });
 
   /**
@@ -139,12 +124,10 @@ module.exports = app => {
   *             - tradingName
   *             - ownerName
   *             - document
-  *             - coverageArea
-  *             - type
-  *             - coordinates
-  *             - address
-  *             - type
-  *             - coordinates
+  *             - lng
+  *             - lat
+  *             - distanceType
+  *             - pointDistance
   *           properties:
   *             id:
   *               type: number
@@ -154,41 +137,23 @@ module.exports = app => {
   *               type: string
   *             document:
   *               type: string
-  *             coverageArea:
-  *               type: object
-  *               $ref: '#/definitions'
-  *             address:
-  *               type: object
-  *               $ref: '#/definitions'
+  *             lat:
+  *               type: float
+  *             lng:
+  *               type: float
+  *             distanceType:
+  *               type: string
+  *             pointDistance:
+  *               type: number
   *           example: {
   *             "id": 1,
   *             "tradingName": "Adega Pinheiros",
   *             "ownerName": "Ze da Silva",
   *             "document": "04.433.714/0001-44",
-  *             "coverageArea": {
-  *               "type": "MultiPolygon",
-  *               "coordinates": [
-  *                 [
-  *                    [
-  *                       [
-  *                          -49.36299,
-  *                          -25.4515
-  *                       ],
-  *                       [
-  *                          -49.35334,
-  *                         -25.45065
-  *                       ]
-  *                   ]
-  *                 ]
-  *               ]
-  *             },
-  *             "address": {
-  *               "type": "Point",
-  *               "coordinates": [
-  *                 -49.33425,
-  *                 -25.380995
-  *               ]
-  *             }
+  *             "lat": -49.33425,
+  *             "lng": -25.380995,
+  *             "distanceType": KM,
+  *             "pointDistance": 2
   *           }
   *     responses:
   *       '200':
@@ -197,13 +162,11 @@ module.exports = app => {
   *         description: Retorna mensagem de insucesso.
   */
   app.post('/pdv', (req, res) => {
-    controller.pdv_post_pdv_controller.postPDV(req.body, (err, data) => {
-      if (err) {
-        res.status(err.status).json({mensagem: err.msg});
-      } else {
-        res.json(data);
-      }
-    });
+    validation_postpdv.validation_post_pdv(req.body, res);
   });
 
+  // Validation to route not found.
+  app.get('*', function(req, res){
+    res.status(404).json('Route Not Found!');
+  });
 }
