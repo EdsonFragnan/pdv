@@ -3,7 +3,7 @@ const validation = require('../../validation/validation_get_one.js');
 
 describe('Test validation get one PDV', (done) => {
   const mensagem = 'Invalid PDV ID.';
-  it('01 - Invalid ID', () => {
+  it('01 - Invalid ID', (done) => {
     let id = '';
     let res = {
       status: (responseStatus) => {
@@ -17,7 +17,7 @@ describe('Test validation get one PDV', (done) => {
     done();
   });
 
-  it('02 - Invalid ID', () => {
+  it('02 - Invalid ID', (done) => {
     let id = null;
     let res = {
       status: (responseStatus) => {
@@ -31,7 +31,7 @@ describe('Test validation get one PDV', (done) => {
     done();
   });
 
-  it('03 - Invalid ID', () => {
+  it('03 - Invalid ID', (done) => {
     let id = undefined;
     let res = {
       status: (responseStatus) => {
@@ -45,7 +45,7 @@ describe('Test validation get one PDV', (done) => {
     done();
   });
 
-  it('04 - Valid ID', () => {
+  it('04 - Valid ID', (done) => {
     let id = 1;
     let res = {
       status: (responseStatus) => {},

@@ -22,8 +22,8 @@ describe('Test validation post PDV', (done) => {
   const messageTypeDistance = 'Invalid Type Distance.'
   const messagePointDistance = 'Invalid Point Distance.'
 
-  describe('01 - Test for ID', () => {
-    it('01 - Invalid ID', () => {
+  describe('01 - Test for ID', (done) => {
+    it('01 - Invalid ID', (done) => {
       body.id = '';
       let res = {
         status: (responseStatus) => {
@@ -37,7 +37,7 @@ describe('Test validation post PDV', (done) => {
       done();
     });
 
-    it('02 - Invalid ID', () => {
+    it('02 - Invalid ID', (done) => {
       body.id = null;
       let res = {
         status: (responseStatus) => {
@@ -51,7 +51,7 @@ describe('Test validation post PDV', (done) => {
       done();
     });
 
-    it('03 - Invalid ID', () => {
+    it('03 - Invalid ID', (done) => {
       body.id = undefined;
       let res = {
         status: (responseStatus) => {
@@ -66,7 +66,7 @@ describe('Test validation post PDV', (done) => {
     });
   });
   describe('02 - Test for tradingName', () => {
-    it('01 - Invalid tradingName - Empty.', () => {
+    it('01 - Invalid tradingName - Empty.', (done) => {
         body.id = '1';
         body.tradingName = '';
         let res = {
@@ -81,7 +81,7 @@ describe('Test validation post PDV', (done) => {
         done();
       });
 
-      it('02 - Invalid tradingName - Null.', () => {
+      it('02 - Invalid tradingName - Null.', (done) => {
         body.id = '1';
         body.tradingName = null;
         let res = {
@@ -96,7 +96,7 @@ describe('Test validation post PDV', (done) => {
         done();
       });
 
-      it('03 - Invalid tradingName - Undefined.', () => {
+      it('03 - Invalid tradingName - Undefined.', (done) => {
         body.id = '1';
         body.tradingName = undefined;
         let res = {
@@ -112,7 +112,7 @@ describe('Test validation post PDV', (done) => {
       });
   });
   describe('03 - Test for ownerName', () => {
-    it('01 - Invalid ownerName - Empty.', () => {
+    it('01 - Invalid ownerName - Empty.', (done) => {
         body.id = '1';
         body.tradingName = 'Teste';
         body.ownerName = '';
@@ -128,7 +128,7 @@ describe('Test validation post PDV', (done) => {
         done();
       });
 
-      it('02 - Invalid ownerName - Null.', () => {
+      it('02 - Invalid ownerName - Null.', (done) => {
         body.id = '1';
         body.tradingName = 'Teste';
         body.ownerName = null;
@@ -144,7 +144,7 @@ describe('Test validation post PDV', (done) => {
         done();
       });
 
-      it('03 - Invalid ownerName - Undefined.', () => {
+      it('03 - Invalid ownerName - Undefined.', (done) => {
         body.id = '1';
         body.tradingName = 'Teste';
         body.ownerName = undefined;
@@ -161,7 +161,7 @@ describe('Test validation post PDV', (done) => {
       });
   });
   describe('04 - Test for document', () => {
-    it('01 - Invalid document - Empty.', () => {
+    it('01 - Invalid document - Empty.', (done) => {
         body.id = '1';
         body.tradingName = 'Teste';
         body.ownerName = 'Teste';
@@ -178,7 +178,7 @@ describe('Test validation post PDV', (done) => {
         done();
       });
 
-      it('02 - Invalid document - Null.', () => {
+      it('02 - Invalid document - Null.', (done) => {
         body.id = '1';
         body.tradingName = 'Teste';
         body.ownerName = 'Teste';
@@ -195,7 +195,7 @@ describe('Test validation post PDV', (done) => {
         done();
       });
 
-      it('03 - Invalid document - Undefined.', () => {
+      it('03 - Invalid document - Undefined.', (done) => {
         body.id = '1';
         body.tradingName = 'Teste';
         body.ownerName = 'Teste';
@@ -211,14 +211,31 @@ describe('Test validation post PDV', (done) => {
         validation.validation_post_pdv(body, res);
         done();
       });
-  });
 
-  describe('05 - Test for lng', () => {
-    it('01 - Invalid LNG - Empty.', () => {
+      it('04 - Invalid document - Fail', (done) => {
         body.id = '1';
         body.tradingName = 'Teste';
         body.ownerName = 'Teste';
-        body.document = '123456789101234';
+        body.document = '1234567890';
+        let res = {
+          status: (responseStatus) => {
+            assert.equal(responseStatus, 422);
+          },
+          json: (responseMessage) => {
+            assert.equal(responseMessage.mensagem, messageDocument);
+          }
+        };
+        validation.validation_post_pdv(body, res);
+        done();
+      });
+  });
+
+  describe('05 - Test for lng', () => {
+    it('01 - Invalid LNG - Empty.', (done) => {
+        body.id = '1';
+        body.tradingName = 'Teste';
+        body.ownerName = 'Teste';
+        body.document = '04.433.714/1231-44';
         body.lng = '';
         let res = {
           status: (responseStatus) => {
@@ -232,11 +249,11 @@ describe('Test validation post PDV', (done) => {
         done();
       });
 
-      it('02 - Invalid LNG - Null.', () => {
+      it('02 - Invalid LNG - Null.', (done) => {
         body.id = '1';
         body.tradingName = 'Teste';
         body.ownerName = 'Teste';
-        body.document = '123456789101234';
+        body.document = '04.433.714/1231-44';
         body.lng = null;
         let res = {
           status: (responseStatus) => {
@@ -250,11 +267,11 @@ describe('Test validation post PDV', (done) => {
         done();
       });
 
-      it('03 - Invalid LNG - Undefined.', () => {
+      it('03 - Invalid LNG - Undefined.', (done) => {
         body.id = '1';
         body.tradingName = 'Teste';
         body.ownerName = 'Teste';
-        body.document = '123456789101234';
+        body.document = '04.433.714/1231-44';
         body.lng = undefined;
         let res = {
           status: (responseStatus) => {
@@ -270,11 +287,11 @@ describe('Test validation post PDV', (done) => {
   });
 
   describe('06 - Test for lat', () => {
-    it('01 - Invalid LAT - Empty.', () => {
+    it('01 - Invalid LAT - Empty.', (done) => {
       body.id = '1';
       body.tradingName = 'Teste';
       body.ownerName = 'Teste';
-      body.document = '123456789101234';
+      body.document = '04.433.714/1231-44';
       body.lng = '25.0000';
       body.lat = '';
       let res = {
@@ -289,11 +306,11 @@ describe('Test validation post PDV', (done) => {
       done();
     });
 
-    it('02 - Invalid LAT - Null.', () => {
+    it('02 - Invalid LAT - Null.', (done) => {
       body.id = '1';
       body.tradingName = 'Teste';
       body.ownerName = 'Teste';
-      body.document = '123456789101234';
+      body.document = '04.433.714/1231-44';
       body.lng = '25.0000';
       body.lat = null;
       let res = {
@@ -308,11 +325,11 @@ describe('Test validation post PDV', (done) => {
       done();
     });
 
-    it('03 - Invalid LAT - Undefined.', () => {
+    it('03 - Invalid LAT - Undefined.', (done) => {
       body.id = '1';
       body.tradingName = 'Teste';
       body.ownerName = 'Teste';
-      body.document = '123456789101234';
+      body.document = '04.433.714/1231-44';
       body.lng = '25.0000';
       body.lat = undefined;
       let res = {
@@ -328,11 +345,11 @@ describe('Test validation post PDV', (done) => {
     });
   });
   describe('07 - Test for distanceType', () => {
-    it('01 - Invalid distanceType - Empty.', () => {
+    it('01 - Invalid distanceType - Empty.', (done) => {
       body.id = '1';
       body.tradingName = 'Teste';
       body.ownerName = 'Teste';
-      body.document = '123456789101234';
+      body.document = '04.433.714/1231-44';
       body.lng = '25.0000';
       body.lat = '49.0000';
       body.distanceType = '';
@@ -348,11 +365,11 @@ describe('Test validation post PDV', (done) => {
       done();
     });
 
-    it('02 - Invalid distanceType - Null.', () => {
+    it('02 - Invalid distanceType - Null.', (done) => {
       body.id = '1';
       body.tradingName = 'Teste';
       body.ownerName = 'Teste';
-      body.document = '123456789101234';
+      body.document = '04.433.714/1231-44';
       body.lng = '25.0000';
       body.lat = '49.0000';
       body.distanceType = null;
@@ -368,11 +385,11 @@ describe('Test validation post PDV', (done) => {
       done();
     });
 
-    it('03 - Invalid distanceType - Undefined.', () => {
+    it('03 - Invalid distanceType - Undefined.', (done) => {
       body.id = '1';
       body.tradingName = 'Teste';
       body.ownerName = 'Teste';
-      body.document = '123456789101234';
+      body.document = '04.433.714/1231-44';
       body.lng = '25.0000';
       body.lat = '49.0000';
       body.distanceType = undefined;
@@ -389,11 +406,11 @@ describe('Test validation post PDV', (done) => {
     });
   });
   describe('08 - Test for pointDistance', () => {
-    it('01 - Invalid distanceType - Empty.', () => {
+    it('01 - Invalid distanceType - Empty.', (done) => {
       body.id = '1';
       body.tradingName = 'Teste';
       body.ownerName = 'Teste';
-      body.document = '123456789101234';
+      body.document = '04.433.714/1231-44';
       body.lng = '25.0000';
       body.lat = '49.0000';
       body.distanceType = 'KM';
@@ -410,11 +427,11 @@ describe('Test validation post PDV', (done) => {
       done();
     });
 
-    it('02 - Invalid distanceType - Null.', () => {
+    it('02 - Invalid distanceType - Null.', (done) => {
       body.id = '1';
       body.tradingName = 'Teste';
       body.ownerName = 'Teste';
-      body.document = '123456789101234';
+      body.document = '04.433.714/1231-44';
       body.lng = '25.0000';
       body.lat = '49.0000';
       body.distanceType = 'KM';
@@ -431,11 +448,11 @@ describe('Test validation post PDV', (done) => {
       done();
     });
 
-    it('03 - Invalid distanceType - Undefined.', () => {
+    it('03 - Invalid distanceType - Undefined.', (done) => {
       body.id = '1';
       body.tradingName = 'Teste';
       body.ownerName = 'Teste';
-      body.document = '123456789101234';
+      body.document = '04.433.714/1231-44';
       body.lng = '25.0000';
       body.lat = '49.0000';
       body.distanceType = 'KM';
@@ -454,11 +471,11 @@ describe('Test validation post PDV', (done) => {
   });
 
   describe('Test Success', () => {
-    it('01 - Valid ID', () => {
+    it('01 - Valid ID', (done) => {
       body.id = '1';
       body.tradingName = 'Teste';
       body.ownerName = 'Teste';
-      body.document = '123456789101234';
+      body.document = '04.433.714/1231-44';
       body.lng = '25.0000';
       body.lat = '49.0000';
       body.distanceType = 'KM';

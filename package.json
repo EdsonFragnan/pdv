@@ -18,6 +18,7 @@
   "homepage": "https://github.com/EdsonFragnan/pdv#readme",
   "dependencies": {
     "consign": "^0.1.6",
+    "cpf_cnpj": "^0.2.0",
     "express": "^4.16.1",
     "geojson": "^0.5.0",
     "geojson-utils": "^1.1.0",

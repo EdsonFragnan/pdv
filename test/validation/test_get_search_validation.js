@@ -12,7 +12,7 @@ describe('Test validation get Search', (done) => {
   };
 
   describe('Test for LNG', () => {
-    it('01 - Invalid LNG - Empty.', () => {
+    it('01 - Invalid LNG - Empty.', (done) => {
       query.lng = '';
       let res = {
         status: (responseStatus) => {
@@ -26,7 +26,7 @@ describe('Test validation get Search', (done) => {
       done();
     });
 
-    it('02 - Invalid LNG - Null.', () => {
+    it('02 - Invalid LNG - Null.', (done) => {
       query.lng = null;
       let res = {
         status: (responseStatus) => {
@@ -40,7 +40,7 @@ describe('Test validation get Search', (done) => {
       done();
     });
 
-    it('03 - Invalid LNG - Undefined.', () => {
+    it('03 - Invalid LNG - Undefined.', (done) => {
       query.lng = undefined;
       let res = {
         status: (responseStatus) => {
@@ -56,7 +56,7 @@ describe('Test validation get Search', (done) => {
   });
 
   describe('Test for LAT', () => {
-    it('01 - Invalid LAT - Empty.', () => {
+    it('01 - Invalid LAT - Empty.', (done) => {
       query.lng = '25.0000';
       query.lat = '';
       let res = {
@@ -71,7 +71,7 @@ describe('Test validation get Search', (done) => {
       done();
     });
 
-    it('02 - Invalid LAT - Null.', () => {
+    it('02 - Invalid LAT - Null.', (done) => {
       query.lng = '25.0000';
       query.lat = null;
       let res = {
@@ -86,7 +86,7 @@ describe('Test validation get Search', (done) => {
       done();
     });
 
-    it('03 - Invalid LAT - Undefined.', () => {
+    it('03 - Invalid LAT - Undefined.', (done) => {
       query.lng = '25.0000';
       query.lat = undefined;
       let res = {
@@ -103,7 +103,7 @@ describe('Test validation get Search', (done) => {
   });
 
   describe('Test for Type Search', () => {
-    it('01 - Invalid Type Search - Empty', () => {
+    it('01 - Invalid Type Search - Empty', (done) => {
       query.lng = '25.0000';
       query.lat = '49.0000';
       query.tipobusca = '';
@@ -119,7 +119,7 @@ describe('Test validation get Search', (done) => {
       done();
     });
 
-    it('02 - Invalid Type Search - Null', () => {
+    it('02 - Invalid Type Search - Null', (done) => {
       query.lng = '25.0000';
       query.lat = '49.0000';
       query.tipobusca = null;
@@ -135,7 +135,7 @@ describe('Test validation get Search', (done) => {
       done();
     });
 
-    it('03 - Invalid Type Search - Undefined', () => {
+    it('03 - Invalid Type Search - Undefined', (done) => {
       query.lng = '25.0000';
       query.lat = '49.0000';
       query.tipobusca = undefined;
@@ -153,7 +153,7 @@ describe('Test validation get Search', (done) => {
   });
 
   describe('Test Success', () => {
-    it('01 - Valid ID', () => {
+    it('01 - Valid ID', (done) => {
       let id = 1;
       let res = {
         status: (responseStatus) => {},

@@ -1,5 +1,5 @@
 'use strict';
-
+const CNPJ = require("cpf_cnpj").CNPJ;
 module.exports.validation_post_pdv = (body, res) => {
     const controller_postpdv = require('../controllers/pdv_post_pdv_controller');
     switch(body) {
@@ -13,6 +13,9 @@ module.exports.validation_post_pdv = (body, res) => {
           res.status(422).json({mensagem: 'Invalid Owner Name.'});
           break;
       case (body.document === '' || body.document === null || body.document === undefined):
+          res.status(422).json({mensagem: 'Invalid Document.'});
+          break;
+      case (CNPJ.isValid(body.document) != true):
           res.status(422).json({mensagem: 'Invalid Document.'});
           break;
       case (body.lng === '' || body.lng === null || body.lng === undefined):
