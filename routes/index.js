@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = app => {
   const controller = app.controllers;
   const validation_get_one = require('../validation/validation_get_one.js');

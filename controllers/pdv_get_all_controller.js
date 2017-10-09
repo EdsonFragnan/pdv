@@ -1,11 +1,15 @@
+'use strict';
+
 module.exports.allPDV = (res) => {
   const PDV = require('../models/pdv.js');
   PDV.findAll((err, data) => {
     if (err || data === null) {
-      res.status(422).json({mensagem: 'PDVs not found.'});
+      res.status(422);
+      res.json({mensagem: 'PDVs not found.'});
     } else {
       if (data.length === 0) {
-        res.status(422).json({mensagem: 'PDVs not found.'});
+        res.status(422);
+        res.json({mensagem: 'PDVs not found.'});
       } else {
         const newObejct = []
         for (var i in data) {

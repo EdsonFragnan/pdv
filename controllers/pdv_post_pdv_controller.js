@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports.postPDV = (pdv, res) => {
   const PDV = require('../models/pdv.js');
   const PolygonCoordinates = require('polygon-coordinates');

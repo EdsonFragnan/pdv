@@ -1,8 +1,11 @@
+'use strict';
+
 module.exports.onePDV = (id, res) => {
   const PDV = require('../models/pdv.js');
   PDV.findOne(id, (err, data) => {
     if (err || data === null) {
-      res.status(422).json({mensagem: 'PDV not found.'});
+      res.status(422);
+      res.json({mensagem: 'PDV not found.'});
     } else {
         const response = {
           'id': data.id,

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports.validation_post_pdv = (body, res) => {
     const controller_postpdv = require('../controllers/pdv_post_pdv_controller');
     switch(body) {
@@ -5,7 +7,7 @@ module.exports.validation_post_pdv = (body, res) => {
           res.status(422).json({mensagem: 'Invalid PDV ID.'});
           break;
       case (body.tradingName === '' || body.tradingName === null || body.tradingName === undefined):
-          res.status(422).json({mensagem: 'Invalid TradingName.'});
+          res.status(422).json({mensagem: 'Invalid Trading Name.'});
           break;
       case (body.ownerName === '' || body.ownerName === null || body.ownerName === undefined):
           res.status(422).json({mensagem: 'Invalid Owner Name.'});

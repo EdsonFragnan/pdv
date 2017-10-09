@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports.getSearch = (location, res) => {
   const PDV = require('../models/pdv.js');
   const _ = require('lodash');
@@ -57,11 +59,13 @@ module.exports.getSearch = (location, res) => {
 
   PDV.findAll((err, data) => {
     if (err || data === null) {
-      res.status(422).json({mensagem: 'PDVs not found.'});
+      res.status(422);
+      res.json({mensagem: 'PDVs not found.'});
     } else {
       array_places(location, data, (resp) => {
         if (resp.length === 0) {
-          res.status(422).json({mensagem: 'PDVs not found.'});
+          res.status(422);
+          res.json({mensagem: 'PDVs not found.'});
         } else if (resp.length === 1) {
           res.json(resp[0]);
         } else {
