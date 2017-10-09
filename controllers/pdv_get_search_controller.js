@@ -68,36 +68,40 @@ module.exports.getSearch = (location, res) => {
         } else if (resp.length === 1) {
           res.json(resp[0]);
         } else {
-          const newArray = [];
-          const arrayId = [];
-          const arrayFinal = [];
-          for (let k in resp) {
-            arrayId.push(resp[k].id);
-          }
-
-          for (let i in arrayId) {
-            if (arrayId.indexOf(arrayId[i]) != i) {
-              newArray.push();
-            } else {
-              newArray.push(arrayId[i]);
+          if (location.tipobusca === 'Point') {
+            res.json(resp[0]);
+          } else {
+            const newArray = [];
+            const arrayId = [];
+            const arrayFinal = [];
+            for (let k in resp) {
+              arrayId.push(resp[k].id);
             }
-          }
 
-          for (let na in newArray) {
-            for (let a in data) {
-              if (data[a].id === newArray[na]) {
-                const pdvs_3 = {
-                  'tradingName': data[a].tradingName,
-                  'ownerName': data[a].ownerName,
-                  'document': data[a].document
-                };
-                arrayFinal.push(pdvs_3);
+            for (let i in arrayId) {
+              if (arrayId.indexOf(arrayId[i]) != i) {
+                newArray.push();
               } else {
-                arrayFinal.push();
+                newArray.push(arrayId[i]);
               }
             }
+
+            for (let na in newArray) {
+              for (let a in data) {
+                if (data[a].id === newArray[na]) {
+                  const pdvs_3 = {
+                    'tradingName': data[a].tradingName,
+                    'ownerName': data[a].ownerName,
+                    'document': data[a].document
+                  };
+                  arrayFinal.push(pdvs_3);
+                } else {
+                  arrayFinal.push();
+                }
+              }
+            }
+            res.json({'nearby_establishments': arrayFinal});
           }
-          res.json({'nearby_establishments': arrayFinal});
         }
       });
     }
