@@ -2,7 +2,6 @@
 
 module.exports.getSearch = (location, res) => {
   const PDV = require('../models/pdv.js');
-  const _ = require('lodash');
   const array_area = (pontos, endereco, callback) => {
     const lista_pdvs = [];
     const finalArray = [];
