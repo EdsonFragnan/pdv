@@ -8,7 +8,7 @@ module.exports = app => {
   const path = require('path');
 
   app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public', 'home.html'));
+    res.sendFile(path.join(__dirname, './../public', 'home.html'));
   });
 
   app.get('/documentation');

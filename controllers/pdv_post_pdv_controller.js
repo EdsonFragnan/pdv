@@ -27,7 +27,7 @@ module.exports.postPDV = (pdv, res) => {
   const InserPdv = (object) => {
     ModelPdv.postPDV(object, (err, data) => {
       if (err) {
-        res.status(422).json({mensagem: 'PDV not registered.'});
+        res.status(422).json({message: 'PDV not registered.'});
       } else {
         res.json(data);
       }

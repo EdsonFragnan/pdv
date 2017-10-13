@@ -19,9 +19,9 @@ const mongoose = require('mongoose'),
 
 module.exports = {
 
-  findAll: (callback) => {
+  findPdv: (request, callback) => {
     const get_pdv = mongoose.model('Pdv', post_pdv);
-    get_pdv.find({}, (error, data) => {
+    get_pdv.find(request, (error, data) => {
         if (error) {
           callback(error, null)
         } else {
@@ -30,9 +30,9 @@ module.exports = {
     });
   },
 
-  findOne: (id_pdv, callback) => {
+  findOne: (request, callback) => {
     const getOne_pdv = mongoose.model('Pdv', post_pdv);
-    getOne_pdv.findOne({id:id_pdv}, (error, data) => {
+    getOne_pdv.findOne(request, (error, data) => {
         if (error) {
           callback(error, null)
         } else {

@@ -1,12 +1,11 @@
 'use strict';
 
-const mongoose = require('mongoose');
 module.exports = () => {
-  let uristring = '';
-  let mensagem = '';
-  const port = process.env.PORT || 3000;
+  const mongoose = require('mongoose');
+  let uristring = '',
+      mensagem = '',
+      port = process.env.PORT || 3000;
   if (port === 3000) {
-    mensagem = 'RODANDO EM DEV!';
     uristring =
       process.env.MONGOLAB_URI ||
       process.env.MONGOHQ_URL ||
@@ -17,12 +16,11 @@ module.exports = () => {
       process.env.MONGOHQ_URL ||
       'mongodb://mydb_pdv:123456@ds111565.mlab.com:11565/heroku_rth83m55';
   }
-
   mongoose.connect(uristring, { useMongoClient: true }, (err, res) => {
     if (err) {
-      console.log ('Bad Connection: ' + mensagem + ' - ' + uristring + '. ' + err);
+      console.log('Bad Connection: working in - ' + uristring + '. ' + err);
     } else {
-      console.log ('Connection Success: ' + mensagem + ' - ' + uristring);
+      console.log('Connection Success: working in - ' + uristring);
     }
   });
 };

@@ -7,9 +7,9 @@
   "host": "localhost:3000",
   "basePath": "/",
   "swagger": "2.0",
-  "paths": { },
-  "definitions": { },
-  "responses": { },
-  "parameters": { },
-  "securityDefinitions": { }
+  "paths": {},
+  "definitions": {},
+  "responses": {},
+  "parameters": {},
+  "securityDefinitions": {}
 }
